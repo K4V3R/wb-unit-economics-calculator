@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор юнит-экономики Wildberries</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Калькулятор юнит-экономики Wildberries</h1>
+        
+        <div class="dashboard">
+            <div class="input-section">
+                <h2>Входные данные</h2>
+                
+                <div class="input-group">
+                    <label for="productName">Название товара</label>
+                    <input type="text" id="productName" placeholder="Например: iPhone 15 Pro">
+                    <div class="input-hint">Укажите название для сохранения расчета</div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Себестоимость</h3>
+                    
+                    <div class="input-group">
+                        <label for="cost">Себестоимость (₽)</label>
+                        <input type="number" id="cost" step="0.01" value="100">
+                        <div class="input-hint">Закупочная цена товара</div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Логистика</h3>
+                    
+                    <div class="input-group">
+                        <label for="delivery">Доставка (₽)</label>
+                        <input type="number" id="delivery" step="0.01" value="50">
+                        <div class="input-hint">Расходы на логистику до склада WB</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="logisticsPerItem">Логистика за единицу (₽)</label>
+                        <input type="number" id="logisticsPerItem" step="0.01" value="30">
+                        <div class="input-hint">Расходы на логистику WB за единицу товара</div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Комиссии и реклама</h3>
+                    
+                    <div class="input-group">
+                        <label for="wbCommission">
+                          Комиссия WB (%)
+                          <span class="tooltip">?</span>
+                        </label>
+                        <input type="number" id="wbCommission" step="0.01" value="15">
+                        <div class="input-hint">Комиссия Wildberries (обычно 10-25%)</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="advertising">Реклама (%)</label>
+                        <input type="number" id="advertising" step="0.01" value="5">
+                        <div class="input-hint">Расходы на внутреннюю рекламу</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="acquiring">Эквайринг (%)</label>
+                        <input type="number" id="acquiring" step="0.01" value="1.5">
+                        <div class="input-hint">Комиссия за прием платежей (обычно 1-2%)</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="additionalCommission">Доп. комиссия (%)</label>
+                        <input type="number" id="additionalCommission" step="0.01" value="0">
+                        <div class="input-hint">Дополнительные комиссии marketplace</div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>Налоги и прочее</h3>
+                    
+                    <div class="input-group">
+                        <label for="tax">Налог (%)</label>
+                        <input type="number" id="tax" step="0.01" value="6">
+                        <div class="input-hint">Налог на самозанятых (6%) или ИП</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="buyoutRate">Процент выкупа (%)</label>
+                        <input type="number" id="buyoutRate" step="0.01" value="70">
+                        <div class="input-hint">Какой процент товаров выкупают покупатели</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="returnRate">Возвраты (%)</label>
+                        <input type="number" id="returnRate" step="0.01" value="10">
+                        <div class="input-hint">Процент возвращенных товаров от выкупленных</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="profitMargin">Желаемая прибыль (%)</label>
+                        <input type="number" id="profitMargin" step="0.01" value="20">
+                        <div class="input-hint">Насколько выше должны быть расходы</div>
+                    </div>
+                </div>
+                
+                <button class="save-btn" id="saveBtn">Сохранить расчет</button>
+            </div>
+            
+            <div class="output-section">
+                <h2>Результаты расчета</h2>
+                
+                <div class="main-results">
+                    <div class="price-block">
+                        <div class="price-label">Рекомендуемая цена</div>
+                        <div class="price-value" id="recommendedPrice">0.00</div>
+                        <div class="price-currency">₽</div>
+                    </div>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Прибыль</div>
+                            <div class="metric-value profit-value" id="profit">0.00</div>
+                            <div class="metric-currency">₽</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-label">Маржа</div>
+                            <div class="metric-value margin-value" id="margin">0.00</div>
+                            <div class="metric-percent">%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="status-block">
+                    <div class="status-label">Статус</div>
+                    <div class="status-value" id="status">--</div>
+                </div>
+                
+                <div class="details-section">
+                    <h3>Детализация расходов</h3>
+                    <div class="detail-item">
+                        <label>Итоговые расходы (₽)</label>
+                        <div class="detail-value" id="totalExpenses">0.00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-section">
+                <h2>График прибыли от цены</h2>
+                <div class="chart-container">
+                    <canvas id="profitChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="saved-products">
+        <h2>Сохраненные товары</h2>
+        <div class="products-list" id="productsList">
+            <div class="empty-state">
+                <p>Нет сохраненных товаров</p>
+                <p>Сохраните расчет, чтобы увидеть его здесь</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="tooltip-box"></div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

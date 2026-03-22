@@ -1,0 +1,632 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #f5f7fb;
+    color: #1a1a1a;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #111;
+    letter-spacing: 0.5px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    background: transparent;
+    border: none;
+    margin-bottom: 30px;
+}
+
+.input-section,
+.output-section,
+.chart-section,
+.saved-products {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: 0.25s ease;
+}
+
+.input-section:hover,
+.output-section:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.input-section {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 10px;
+    scroll-behavior: smooth;
+}
+
+.input-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.input-section::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 10px;
+}
+
+.input-section::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.output-section {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #ffffff;
+    border-bottom: 1px solid #2a2a2a;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: #555;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 14px 16px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    color: #111;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    font-weight: 400;
+}
+
+input[type="number"]:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: #ffffff;
+}
+
+input[type="number"]:hover, input[type="text"]:hover {
+    border-color: #3b82f6;
+    background: #ffffff;
+}
+
+input[type="text"]::placeholder {
+    color: #888;
+}
+
+/* Подсказки к полям */
+.input-hint {
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 6px;
+    font-style: normal;
+    line-height: 1.4;
+}
+
+/* Кнопка сохранения */
+.save-btn {
+    width: 100%;
+    padding: 16px 20px;
+    background: #3b82f6;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.save-btn:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+.save-btn:active {
+    transform: scale(0.98);
+}
+
+.form-section {
+    margin-top: 25px;
+    padding-top: 10px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.form-section h3 {
+    font-size: 12px;
+    margin-bottom: 10px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.result-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.result-item label {
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    color: #9ca3af;
+}
+
+.result-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #10b981;
+    text-align: right;
+}
+
+/* Основные результаты */
+.main-results {
+    margin-bottom: 25px;
+}
+
+.price-block {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    border-radius: 20px;
+    padding: 35px;
+    text-align: center;
+    color: white;
+    border: none;
+    box-shadow: 0 10px 30px rgba(59,130,246,0.3);
+    margin-bottom: 20px;
+    transition: 0.2s ease;
+}
+
+.price-block:hover {
+    transform: translateY(-2px);
+}
+
+.price-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-value {
+    font-size: 42px;
+    font-weight: 700;
+    margin-top: 10px;
+    color: white;
+}
+
+.price-currency {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.8);
+    margin-top: 5px;
+    font-weight: 400;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.metric-card {
+    background: #f9fafb;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+}
+
+.metric-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+}
+
+.metric-label {
+    font-size: 0.75rem;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #111;
+    position: relative;
+}
+
+.metric-currency, .metric-percent {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* Цветовые индикаторы для прибыли */
+.profit-value.positive {
+    color: #16a34a;
+}
+
+.profit-value.neutral {
+    color: #6b7280;
+}
+
+.profit-value.negative {
+    color: #dc2626;
+}
+
+.margin-value.positive {
+    color: #16a34a;
+}
+
+.margin-value.neutral {
+    color: #6b7280;
+}
+
+.margin-value.negative {
+    color: #dc2626;
+}
+
+/* Статус блок */
+.status-block {
+    background: #f9fafb;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.status-label {
+    font-size: 0.75rem;
+    color: #555;
+    margin-bottom: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-value {
+    font-size: 1.2rem;
+    font-weight: 400;
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-value.profitable {
+    background: #f9fafb;
+    color: #3b82f6;
+    border: 1px solid #e5e7eb;
+}
+
+.status-value.risky {
+    background: #f9fafb;
+    color: #f59e0b;
+    border: 1px solid #e5e7eb;
+}
+
+.status-value.unprofitable {
+    background: #f9fafb;
+    color: #dc2626;
+    border: 1px solid #e5e7eb;
+}
+
+/* Детализация */
+.details-section {
+    background: #f9fafb;
+    border-radius: 4px;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+}
+
+.details-section h3 {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #111;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 8px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.detail-item label {
+    margin: 0;
+    color: #555;
+    font-size: 0.75rem;
+}
+
+.detail-value {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #111;
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .input-section, .output-section {
+        padding: 20px;
+    }
+    
+    .price-value {
+        font-size: 2.5rem;
+    }
+    
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Сохраненные товары */
+.saved-products {
+    max-width: 1200px;
+    margin: 30px auto 0;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.saved-products h2 {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #111;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.products-list {
+    display: grid;
+    gap: 15px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+    font-style: normal;
+}
+
+.empty-state p {
+    margin: 5px 0;
+}
+
+.product-card {
+    background: #f9fafb;
+    border-radius: 4px;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+}
+
+.product-card:hover {
+    border-color: #3b82f6;
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #111;
+    margin: 0;
+}
+
+.delete-btn {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    color: #dc2626;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.8rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.delete-btn:hover {
+    background: #fee2e2;
+    border-color: #dc2626;
+}
+
+.product-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.metric-item {
+    text-align: center;
+    padding: 10px;
+    background: #f9fafb;
+    border-radius: 4px;
+}
+
+.metric-label {
+    font-size: 0.7rem;
+    color: #888;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metric-value {
+    font-size: 1rem;
+    font-weight: 300;
+    color: #111;
+}
+
+.metric-value.profit {
+    color: #3b82f6;
+}
+
+.metric-value.profit.negative {
+    color: #dc2626;
+}
+
+/* График */
+.chart-section {
+    grid-column: 1 / -1;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.chart-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #111;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.chart-container {
+    position: relative;
+    height: 400px;
+    background: #f9fafb;
+    border-radius: 4px;
+    padding: 15px;
+    border: 1px solid #e5e7eb;
+}
+
+@media (max-width: 768px) {
+    .chart-container {
+        height: 300px;
+    }
+}
+
+/* Анимация для результатов */
+.result-value {
+    transition: all 0.3s ease;
+}
+
+.result-value.updated {
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.metric-value {
+    transition: all 0.3s ease;
+}
+
+.metric-value.updated {
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.price-value {
+    transition: all 0.3s ease;
+}
+
+.price-value.updated {
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+/* Tooltip styles */
+.tooltip {
+    display: inline-block;
+    margin-left: 6px;
+    width: 16px;
+    height: 16px;
+    background: #3b82f6;
+    color: white;
+    font-size: 11px;
+    text-align: center;
+    line-height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#tooltip-box {
+    position: absolute;
+    background: #111;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    max-width: 220px;
+    display: none;
+    z-index: 1000;
+}
